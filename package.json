@@ -5,11 +5,7 @@
   "scripts": {
     "start": "serve -s . -l 8080",
     "dev": "serve -s . -l 8080",
-    "serve": "serve -s . -l 8080",
-    "serve-python": "python3 -m http.server 8080",
-    "serve-php": "php -S localhost:8080",
     "open": "serve -s . -l 8080 --open",
-    "clean": "rm -rf node_modules package-lock.json .parcel-cache dist",
     "editor": "node server.js",
     "editor-start": "concurrently \"npm run editor\" \"npm run serve\"",
     "build": "echo 'Static website - no build needed'"
@@ -19,8 +15,7 @@
     "express": "^5.1.0",
     "grapesjs": "^0.22.12",
     "js-beautify": "^1.15.4",
-    "multer": "^2.0.2",
-    "prettier": "^3.6.2"
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
