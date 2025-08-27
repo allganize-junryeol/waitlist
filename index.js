@@ -330,9 +330,7 @@ class WaitlistEditor {
     <meta name="viewport" content="${metadata.viewport}">
     <title>${metadata.title}</title>
 </head>
-<body>
-    ${this.editor.getHtml()}
-</body>
+${this.editor.getHtml()}
 </html>`;
     }
 
