@@ -53,6 +53,79 @@ function formatCSS(css) {
     }
 }
 
+// CSS 중복 제거 함수 - 간단하고 효과적인 버전
+function removeDuplicateCSS(css) {
+    try {
+        if (!css || !css.trim()) {
+            return css;
+        }
+
+        console.log('🧹 CSS 중복 제거 시작');
+        
+        // CSS를 규칙별로 분리 (간단한 정규식 사용)
+        const cssRules = css.split('}').filter(rule => rule.trim());
+        const uniqueRules = new Map();
+        
+        let originalRuleCount = 0;
+        
+        for (let rule of cssRules) {
+            rule = rule.trim();
+            if (!rule) continue;
+            
+            // 중괄호 추가 (split에서 제거되었으므로)
+            if (!rule.includes('{')) continue;
+            
+            originalRuleCount++;
+            
+            // 셀렉터와 속성 분리
+            const parts = rule.split('{');
+            if (parts.length < 2) continue;
+            
+            const selector = parts[0].trim();
+            const properties = parts[1].trim();
+            
+            // 셀렉터를 키로 사용하여 중복 제거 (마지막 규칙이 우선)
+            uniqueRules.set(selector, properties);
+        }
+        
+        // 중복 제거된 CSS 재구성
+        let cleanedCSS = '';
+        uniqueRules.forEach((properties, selector) => {
+            cleanedCSS += `${selector} {\n`;
+            
+            // 속성들을 정리
+            const props = properties.split(';').filter(prop => prop.trim());
+            props.forEach(prop => {
+                prop = prop.trim();
+                if (prop) {
+                    cleanedCSS += `    ${prop};\n`;
+                }
+            });
+            
+            cleanedCSS += '}\n\n';
+        });
+        
+        // 마지막 빈 줄 제거
+        cleanedCSS = cleanedCSS.trim();
+        
+        const cleanedRuleCount = uniqueRules.size;
+        const removedRules = originalRuleCount - cleanedRuleCount;
+        
+        if (removedRules > 0) {
+            console.log(`✨ CSS 중복 제거 완료: ${removedRules}개 중복 규칙 제거됨 (${originalRuleCount} → ${cleanedRuleCount})`);
+        } else {
+            console.log('✅ CSS 중복 제거 완료: 중복 규칙 없음');
+        }
+        
+        return cleanedCSS;
+        
+    } catch (error) {
+        console.error('CSS 중복 제거 실패:', error.message);
+        console.error('Error stack:', error.stack);
+        return css; // 실패시 원본 반환
+    }
+}
+
 // 파일명에서 확장자를 제거하고 디렉토리 경로를 반환하는 함수
 function getFileBaseName(filename) {
     return path.parse(filename).name;
@@ -418,7 +491,11 @@ router.post('/save-page/:filename', async (req, res) => {
                 const htmlDir = path.dirname(fullPath);
                 cssPath = path.join(htmlDir, `${fileBaseName}.css`);
                 
-                const formattedCss = formatCSS(css);
+                // 1. CSS 중복 제거
+                const deduplicatedCss = removeDuplicateCSS(css);
+                
+                // 2. CSS 포매팅
+                const formattedCss = formatCSS(deduplicatedCss);
                 
                 const finalCss = formattedCss;
                 await fs.writeFile(cssPath, finalCss, 'utf8');
