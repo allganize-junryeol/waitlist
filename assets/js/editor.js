@@ -21,8 +21,8 @@ class WaitlistEditor {
             // 캔버스 설정 - CSS 파일들을 직접 로드
             canvas: {
                 styles: [
-                    'http://localhost:3001/assets/css/styles.css',
-                    'http://localhost:3001/assets/css/sitemap.css'
+                    'http://localhost:3000/assets/css/styles.css',
+                    'http://localhost:3000/assets/css/sitemap.css'
                 ]
             },
             
@@ -162,7 +162,7 @@ class WaitlistEditor {
         try {
             this.showStatus('Loading files...', 'loading');
             
-            const response = await fetch('http://localhost:3001/api/files');
+            const response = await fetch('http://localhost:3000/api/files');
             const result = await response.json();
             
             if (!result.success) {
@@ -288,12 +288,20 @@ class WaitlistEditor {
             // 파일명에서 확장자 제거
             const fileName = this.currentFile.split('/').pop();
             
-            const response = await fetch(`http://localhost:3001/api/load-page/${fileName}`);
+            const response = await fetch(`http://localhost:3000/api/load-page/${fileName}`);
             if (!response.ok) {
                 throw new Error('페이지 로드 실패');
             }
             
             const data = await response.json();
+            
+            // 로드된 정보를 콘솔에 출력
+            console.log('페이지 로드 완료:', {
+                filename: data.filename,
+                htmlSize: data.htmlSize,
+                cssSize: data.cssSize,
+                cssFiles: data.cssFiles
+            });
             
             // HTML을 파싱하여 body 내용만 추출
             const parser = new DOMParser();
@@ -361,7 +369,7 @@ class WaitlistEditor {
             const css = this.editor.getCss();
             const fileName = this.currentFile.split('/').pop();
             
-            const response = await fetch(`http://localhost:3001/api/save-page/${fileName}`, {
+            const response = await fetch(`http://localhost:3000/api/save-page/${fileName}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -376,7 +384,15 @@ class WaitlistEditor {
                 throw new Error('저장 실패');
             }
             
-            this.showStatus(`${fileName} saved`, 'success');
+            const result = await response.json();
+            console.log('저장 완료:', result);
+            
+            // 상세 저장 정보를 포함한 메시지 표시
+            const message = result.message || `${fileName} saved`;
+            const details = result.files ? 
+                ` (HTML: ${result.formatted.html}자, CSS: ${result.formatted.css}자)` : '';
+            
+            this.showStatus(message + details, 'success');
         } catch (error) {
             console.error('저장 오류:', error);
             this.showStatus('Save failed: ' + error.message, 'error');
