@@ -4,6 +4,7 @@ class WaitlistEditor {
         this.editor = null;
         this.currentFile = null;
         this.fileTree = [];
+        this.currentFileMetadata = null;
         this.init();
     }
 
@@ -107,40 +108,48 @@ class WaitlistEditor {
         
         const renderItems = (items, container) => {
             items.forEach(item => {
-                const itemElement = document.createElement('div');
-                
                 if (item.type === 'directory') {
+                    // 폴더 아이템 컨테이너 생성
+                    const folderWrapper = document.createElement('div');
+                    folderWrapper.className = 'folder-wrapper';
+                    
+                    const itemElement = document.createElement('div');
                     itemElement.className = 'file-item directory-item';
                     itemElement.innerHTML = `
                         <span class="icon">📁</span>
                         <span class="name">${item.name}</span>
                     `;
                     
+                    // 하위 항목들 컨테이너 생성
+                    let childrenContainer = null;
+                    if (item.children && item.children.length > 0) {
+                        childrenContainer = document.createElement('div');
+                        childrenContainer.className = 'directory-children';
+                        childrenContainer.style.display = 'none'; // 기본적으로 숨김
+                        renderItems(item.children, childrenContainer);
+                    }
+                    
                     // 디렉토리 클릭 토글
-                    let isExpanded = true; // 기본적으로 확장
-                    itemElement.addEventListener('click', () => {
-                        isExpanded = !isExpanded;
-                        const childrenContainer = itemElement.nextElementSibling;
+                    let isExpanded = false; // 기본적으로 닫힌 상태
+                    itemElement.addEventListener('click', (e) => {
+                        e.stopPropagation(); // 이벤트 전파 방지
+                        
                         if (childrenContainer) {
+                            isExpanded = !isExpanded;
                             childrenContainer.style.display = isExpanded ? 'block' : 'none';
                             itemElement.querySelector('.icon').textContent = isExpanded ? '📂' : '📁';
                         }
                     });
                     
-                    container.appendChild(itemElement);
-                    
-                    // 하위 항목들
-                    if (item.children && item.children.length > 0) {
-                        const childrenContainer = document.createElement('div');
-                        childrenContainer.className = 'directory-children';
-                        renderItems(item.children, childrenContainer);
-                        container.appendChild(childrenContainer);
-                        
-                        // 초기 상태는 확장
-                        itemElement.querySelector('.icon').textContent = '📂';
+                    folderWrapper.appendChild(itemElement);
+                    if (childrenContainer) {
+                        folderWrapper.appendChild(childrenContainer);
                     }
                     
+                    container.appendChild(folderWrapper);
+                    
                 } else if (item.type === 'file') {
+                    const itemElement = document.createElement('div');
                     itemElement.className = 'file-item';
                     const sizeText = this.formatFileSize(item.size);
                     itemElement.innerHTML = `
@@ -150,7 +159,8 @@ class WaitlistEditor {
                     `;
                     
                     // 파일 클릭 시 로드
-                    itemElement.addEventListener('click', () => {
+                    itemElement.addEventListener('click', (e) => {
+                        e.stopPropagation(); // 이벤트 전파 방지
                         this.selectFile(item.path, itemElement);
                     });
                     
@@ -208,6 +218,9 @@ class WaitlistEditor {
             }
             
             const data = await response.json();
+            
+            // 메타데이터 저장
+            this.currentFileMetadata = data.metadata || null;
             
             // 페어 CSS 로드 확인
             if (data.cssFiles && data.cssFiles.length > 0) {
@@ -302,17 +315,24 @@ class WaitlistEditor {
     }
 
     generateFullHTML() {
+        // 원본 파일의 메타데이터 사용 (일반화)
+        const metadata = this.currentFileMetadata || {
+            title: 'Untitled',
+            charset: 'UTF-8',
+            viewport: 'width=device-width, initial-scale=1.0',
+            lang: 'ko'
+        };
+        
         // 서버에서 CSS 완전 분리를 처리하므로 단순한 HTML만 생성
         return `<!DOCTYPE html>
-<html lang="ko">
+<html lang="${metadata.lang}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waitlist - 출시 전 알림 받기</title>
+    <meta charset="${metadata.charset}">
+    <meta name="viewport" content="${metadata.viewport}">
+    <title>${metadata.title}</title>
 </head>
 <body>
     ${this.editor.getHtml()}
-    <script src="./js/script.js"></script>
 </body>
 </html>`;
     }
