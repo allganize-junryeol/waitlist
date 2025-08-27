@@ -1,0 +1,19 @@
+{
+  "name": "waitlist-website",
+  "version": "1.0.0",
+  "description": "정적 대기자 명단 웹사이트",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "dev": "parcel index.html --open",
+    "clean": "rm -rf dist .parcel-cache"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
