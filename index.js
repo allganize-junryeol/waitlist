@@ -75,7 +75,7 @@ class WaitlistEditor {
         try {
             this.showStatus('Loading files...', 'loading');
             
-            const response = await fetch('http://localhost:3000/api/files');
+            const response = await fetch('/api/files');
             const result = await response.json();
             
             if (!result.success) {
@@ -180,7 +180,8 @@ class WaitlistEditor {
         
         // 새 파일 선택
         element.classList.add('active');
-        this.currentFile = filePath;
+        // 파일명만 추출해서 저장 (서버에서 동적으로 경로 찾기)
+        this.currentFile = filePath.split('/').pop();
         
         // 현재 파일명 업데이트 (요소가 있는 경우에만)
         const currentFileNameEl = document.getElementById('currentFileName');
@@ -209,10 +210,8 @@ class WaitlistEditor {
         try {
             this.showStatus('Loading page...', 'loading');
             
-            // 파일명에서 확장자 제거
-            const fileName = this.currentFile.split('/').pop();
-            
-            const response = await fetch(`http://localhost:3000/api/load-page/${fileName}`);
+            // 파일명만 전달 (서버에서 동적으로 경로 찾기)
+            const response = await fetch(`/api/load-page/${this.currentFile}`);
             if (!response.ok) {
                 throw new Error('페이지 로드 실패');
             }
@@ -249,7 +248,7 @@ class WaitlistEditor {
             document.getElementById('saveBtn').disabled = false;
             document.getElementById('previewBtn').disabled = false;
             
-            this.showStatus(`${fileName} loaded`, 'success');
+            this.showStatus(`${this.currentFile} loaded`, 'success');
             
         } catch (error) {
             this.showStatus('Failed to load: ' + error.message, 'error');
@@ -288,9 +287,9 @@ class WaitlistEditor {
             
             const html = this.generateFullHTML();
             const css = this.editor.getCss();
-            const fileName = this.currentFile.split('/').pop();
             
-            const response = await fetch(`http://localhost:3000/api/save-page/${fileName}`, {
+            // 파일명만 전달 (서버에서 동적으로 경로 찾기)
+            const response = await fetch(`/api/save-page/${this.currentFile}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -308,7 +307,7 @@ class WaitlistEditor {
             const result = await response.json();
             
             // 저장 완료 메시지 표시
-            this.showStatus(result.message || `${fileName} saved successfully`, 'success');
+            this.showStatus(result.message || `${this.currentFile} saved successfully`, 'success');
         } catch (error) {
             this.showStatus('Save failed: ' + error.message, 'error');
         }

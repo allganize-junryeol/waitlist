@@ -118,18 +118,19 @@ app.use(express.json({ limit: '10mb' }));
 
 // 정적 파일 서빙 - 에디터에서 CSS/JS 접근 가능하도록
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use(express.static(__dirname)); // 루트 디렉토리의 정적 파일 (JS, CSS 등) 제공
 
 // index.html 직접 라우팅
 app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'editor.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/index', (req, res) => {
-    res.sendFile(path.join(__dirname, 'editor.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'editor.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 // API 라우트
 
@@ -157,11 +158,10 @@ app.get('/api/files', async (req, res) => {
                         children: children
                     });
                 } else if (entry.isFile()) {
-                    // 모든 파일 포함 (편집 가능한 파일들)
+                    // HTML 파일만 포함 (실제로 로드 가능한 파일들)
                     const ext = path.extname(entry.name).toLowerCase();
-                    const editableExtensions = ['.html', '.css', '.js', '.json', '.md', '.txt'];
                     
-                    if (editableExtensions.includes(ext)) {
+                    if (ext === '.html') {
                         const stats = await fs.stat(fullPath);
                         items.push({
                             name: entry.name,
@@ -196,17 +196,16 @@ app.get('/api/files', async (req, res) => {
     }
 });
 
-// 페이지 로드 - 개선된 버전 (페어 CSS 파일 로드)
+// 페이지 로드 - 임시로 원래 방식으로 되돌림 (서브디렉터리 지원 포함)
 app.get('/api/load-page/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
         
-        // 보안 검증
-        const allowedFiles = ['index.html', 'sitemap.html'];
-        if (!allowedFiles.includes(filename)) {
+        // HTML 파일인지 검증
+        if (!filename.endsWith('.html')) {
             return res.status(400).json({ 
-                error: 'Invalid filename',
-                allowed: allowedFiles 
+                error: 'Only HTML files are supported',
+                filename: filename
             });
         }
         
@@ -214,10 +213,39 @@ app.get('/api/load-page/:filename', async (req, res) => {
         
         const fileBaseName = getFileBaseName(filename);
         const assetsDir = path.join(__dirname, 'assets');
-        const filePath = path.join(assetsDir, filename);
+        
+        // 서브디렉터리 파일 재귀적 검색
+        async function findFileRecursively(dirPath, targetFilename) {
+            try {
+                const entries = await fs.readdir(dirPath, { withFileTypes: true });
+                
+                for (const entry of entries) {
+                    const fullEntryPath = path.join(dirPath, entry.name);
+                    
+                    if (entry.isFile() && entry.name === targetFilename) {
+                        return fullEntryPath;
+                    } else if (entry.isDirectory()) {
+                        const found = await findFileRecursively(fullEntryPath, targetFilename);
+                        if (found) return found;
+                    }
+                }
+            } catch (err) {
+                // 디렉토리 접근 불가, 무시
+            }
+            return null;
+        }
+        
+        const fullPath = await findFileRecursively(assetsDir, filename);
+        
+        if (!fullPath) {
+            return res.status(404).json({ 
+                error: 'File not found',
+                filename: filename
+            });
+        }
         
         // HTML 파일 읽기
-        const html = await fs.readFile(filePath, 'utf8');
+        const html = await fs.readFile(fullPath, 'utf8');
         
         // HTML에서 메타데이터 추출
         const htmlMetadata = extractHtmlMetadata(html);
@@ -228,14 +256,18 @@ app.get('/api/load-page/:filename', async (req, res) => {
         let hasPairCss = false;
         
         try {
-            // 1. 페어 CSS 파일 (HTML과 같은 이름) 먼저 확인 - 우선순위 최고
-            const pairCssPath = path.join(assetsDir, `${fileBaseName}.css`);
+            // 1. 페어 CSS 파일 (HTML과 같은 이름, 같은 디렉터리) 먼저 확인 - 우선순위 최고
+            const htmlDir = path.dirname(fullPath);
+            const pairCssPath = path.join(htmlDir, `${fileBaseName}.css`);
             try {
                 const pairCss = await fs.readFile(pairCssPath, 'utf8');
                 css = pairCss; // 페어 CSS로 완전 교체
-                cssFiles.push(`${fileBaseName}.css`);
+                
+                // 상대 경로 계산
+                const relativeCssPath = path.relative(assetsDir, pairCssPath).replace(/\\/g, '/');
+                cssFiles.push(relativeCssPath);
                 hasPairCss = true;
-                console.log(`🔄 페어 CSS로 교체 로드됨`);
+                console.log(`🔄 페어 CSS로 교체 로드됨: ${relativeCssPath}`);
             } catch (pairError) {
                 // 페어 CSS 파일 없음
             }
@@ -253,8 +285,8 @@ app.get('/api/load-page/:filename', async (req, res) => {
                     // 기본 styles.css 파일 없음
                 }
                 
-                // sitemap 전용 CSS (sitemap.html인 경우만)
-                if (filename === 'sitemap.html') {
+                // 특정 파일명에 대한 전용 CSS 로드 (예: sitemap.html -> sitemap.css)
+                if (fileBaseName === 'sitemap') {
                     try {
                         const sitemapCssPath = path.join(assetsDir, 'css/sitemap.css');
                         const sitemapCss = await fs.readFile(sitemapCssPath, 'utf8');
@@ -297,26 +329,52 @@ app.get('/api/load-page/:filename', async (req, res) => {
     }
 });
 
-// 페이지 저장 - 개선된 버전 (HTML/CSS 페어 파일 + 예쁜 포매팅)
+// 페이지 저장 - 임시로 원래 방식으로 되돌림 (서브디렉터리 지원 포함)
 app.post('/api/save-page/:filename', async (req, res) => {
     try {
         const filename = req.params.filename;
         const { html, css } = req.body;
         
-        // 보안 검증 - 더 유연하게 확장 가능
-        const allowedFiles = ['index.html', 'sitemap.html'];
-        if (!allowedFiles.includes(filename)) {
+        // HTML 파일인지 검증
+        if (!filename.endsWith('.html')) {
             return res.status(400).json({ 
-                error: 'Invalid filename',
-                allowed: allowedFiles 
+                error: 'Only HTML files are supported',
+                filename: filename
             });
         }
         
         console.log(`💾 ${filename} 저장 시작`);
         
-        const fileBaseName = getFileBaseName(filename); // 'index' or 'sitemap'
+        const fileBaseName = getFileBaseName(filename);
         const assetsDir = path.join(__dirname, 'assets');
-        const filePath = path.join(assetsDir, filename);
+        
+        // 서브디렉터리 파일 재귀적 검색 (로드와 동일한 로직)
+        async function findFileRecursively(dirPath, targetFilename) {
+            try {
+                const entries = await fs.readdir(dirPath, { withFileTypes: true });
+                
+                for (const entry of entries) {
+                    const fullEntryPath = path.join(dirPath, entry.name);
+                    
+                    if (entry.isFile() && entry.name === targetFilename) {
+                        return fullEntryPath;
+                    } else if (entry.isDirectory()) {
+                        const found = await findFileRecursively(fullEntryPath, targetFilename);
+                        if (found) return found;
+                    }
+                }
+            } catch (err) {
+                // 디렉토리 접근 불가, 무시
+            }
+            return null;
+        }
+        
+        let fullPath = await findFileRecursively(assetsDir, filename);
+        
+        // 파일이 없으면 기본 위치에 생성
+        if (!fullPath) {
+            fullPath = path.join(assetsDir, filename);
+        }
         
         // HTML 포매팅 및 저장
         let formattedHtml = html;
@@ -328,21 +386,25 @@ app.post('/api/save-page/:filename', async (req, res) => {
                 formattedHtml = html; // 포매팅 실패시 원본 사용
             }
         }
-2        
+        
         // CSS 완전 분리 저장 - HTML에서 인라인 스타일 제거
         let cssPath = null;
         let cleanedHtml = formattedHtml;
         
         if (css && css.trim()) {
             try {
-                // CSS 파일을 HTML 파일과 같은 위치에 생성 (assets/{filename}.css)
-                cssPath = path.join(assetsDir, `${fileBaseName}.css`);
+                // CSS 파일을 HTML 파일과 같은 위치에 생성
+                const htmlDir = path.dirname(fullPath);
+                cssPath = path.join(htmlDir, `${fileBaseName}.css`);
                 
                 const formattedCss = formatCSS(css);
                 
                 const finalCss = formattedCss;
                 await fs.writeFile(cssPath, finalCss, 'utf8');
-                console.log(`✨ CSS 페어 파일 저장 완료`);
+                
+                // 상대 경로 계산
+                const relativeCssPath = path.relative(assetsDir, cssPath).replace(/\\/g, '/');
+                console.log(`✨ CSS 페어 파일 저장 완료: ${relativeCssPath}`);
                 
                 // HTML에서 인라인 스타일 제거 (완전 분리)
                 cleanedHtml = removeInlineStylesFromHtml(formattedHtml, `${fileBaseName}.css`);
@@ -353,14 +415,14 @@ app.post('/api/save-page/:filename', async (req, res) => {
         }
         
         // HTML 파일 재저장 (인라인 스타일 제거된 버전)
-        await fs.writeFile(filePath, cleanedHtml, 'utf8');
+        await fs.writeFile(fullPath, cleanedHtml, 'utf8');
         console.log(`🎉 ${filename} 저장 완료 - HTML/CSS 페어 생성됨`);
         
         res.json({
             success: true,
             message: `${filename}이(가) 성공적으로 저장되었습니다`,
             timestamp: new Date().toISOString(),
-            files: { html: filePath, css: cssPath }
+            files: { html: fullPath, css: cssPath }
         });
         
     } catch (error) {
