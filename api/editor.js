@@ -201,7 +201,7 @@ function removeInlineStylesFromHtml(html, cssFileName) {
             // head 태그 내에 CSS 링크 추가
             const headEndRegex = /<\/head>/i;
             if (headEndRegex.test(cleanedHtml)) {
-                const cssLink = `    <link rel="stylesheet" href="./assets/${cssFileName}">`;
+                const cssLink = `    <link rel="stylesheet" href="/${cssFileName}">`;
                 cleanedHtml = cleanedHtml.replace(headEndRegex, `${cssLink}\n</head>`);
             }
         }

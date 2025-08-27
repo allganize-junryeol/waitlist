@@ -9,6 +9,14 @@ const PORT = 3000;
 // Editor API 라우터 import
 const editorRouter = require('./api/editor');
 
+function sendIndex(res){
+    if (process.env.NODE_ENV === 'production'){
+        res.redirect('/assets/home.html');
+    } else {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    }
+}
+
 // 미들웨어 설정
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -22,22 +30,20 @@ app.use('/api', editorRouter);
 
 // index.html 직접 라우팅
 app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    sendIndex(res);
 });
 
 app.get('/index', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    sendIndex(res);
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    sendIndex(res);
 });
 
 // 서버 시작
 app.listen(PORT, () => {
-    console.log(`🚀 GrapesJS 에디터 서버 실행중 (포트 ${PORT})`);
-    console.log(`📝 에디터: http://localhost:${PORT}`);
-    console.log(`✨ HTML/CSS 페어 파일 자동 관리 + 예쁜 포매팅`);
+    console.log(`Running on http://localhost:${PORT}`);
 });
 
 // 예기치 못한 오류 처리
