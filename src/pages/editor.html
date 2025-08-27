@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지 에디터 - GrapesJS</title>
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
+</head>
+<body>
+    <div class="editor-header">
+        <div class="header-container">
+            <div class="header-left">
+                <h1 class="editor-title">
+                    <span class="editor-icon">🎨</span>
+                    페이지 에디터
+                </h1>
+                <span class="editor-subtitle">GrapesJS로 웹페이지를 시각적으로 편집하세요</span>
+            </div>
+            <div class="header-actions">
+                <button id="saveBtn" class="action-btn save-btn">
+                    <span class="btn-icon">💾</span>
+                    저장
+                </button>
+                <button id="previewBtn" class="action-btn preview-btn">
+                    <span class="btn-icon">👀</span>
+                    미리보기
+                </button>
+                <a href="sitemap.html" class="action-btn back-btn">
+                    <span class="btn-icon">🗺️</span>
+                    사이트맵
+                </a>
+                <a href="index.html" class="action-btn back-btn">
+                    <span class="btn-icon">🏠</span>
+                    홈으로
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-container">
+        <div id="gjs" class="editor-canvas">
+            <!-- GrapesJS will load content here -->
+        </div>
+    </div>
+
+    <div id="saveModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>페이지 저장</h3>
+                <button id="closeModal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="save-options">
+                    <div class="save-option">
+                        <label for="pageSelect" class="option-label">저장할 페이지:</label>
+                        <select id="pageSelect" class="option-select">
+                            <option value="index">메인 페이지 (index.html)</option>
+                            <option value="custom">새 페이지 만들기</option>
+                        </select>
+                    </div>
+                    <div id="customPageName" class="save-option hidden">
+                        <label for="newPageName" class="option-label">페이지 이름:</label>
+                        <input type="text" id="newPageName" class="option-input" placeholder="page-name (확장자 제외)">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelSave" class="modal-btn cancel-btn">취소</button>
+                <button id="confirmSave" class="modal-btn confirm-btn">저장하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/grapesjs"></script>
+    <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+    <script src="../assets/js/editor.js"></script>
+</body>
+</html>

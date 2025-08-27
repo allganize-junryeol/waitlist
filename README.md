@@ -1,15 +1,18 @@
-# Waitlist Website
+# Waitlist Website with GrapesJS Editor
 
-Parcel 기반의 정적 대기자 명단 웹사이트입니다. JavaScript 사용을 최소화하여 가볍고 빠른 로딩을 제공합니다.
+Parcel 기반의 정적 대기자 명단 웹사이트입니다. GrapesJS를 통한 시각적 편집 기능이 포함되어 있으며, JavaScript 사용을 최소화하여 가볍고 빠른 로딩을 제공합니다.
 
-## 📋 기능
+## 📋 주요 기능
 
-- 📱 완전 반응형 디자인
-- ✨ 모던하고 깔끔한 UI
-- 🚀 빠른 로딩 속도
-- 📧 이메일 유효성 검사
-- 💫 부드러운 애니메이션
-- 🎯 최소한의 JavaScript 사용
+- 📱 **완전 반응형** 디자인 (모바일/태블릿/데스크톱)
+- 🎨 **GrapesJS 시각적 에디터** 내장
+- ✨ **모던하고 깔끔한** UI/UX
+- 🚀 **빠른 로딩** 속도 (Parcel 최적화)
+- 📧 **이메일 유효성 검사**
+- 💫 **부드러운 애니메이션**
+- 🎯 **최소한의 JavaScript** 사용
+- 🗺️ **사이트맵** 기반 구조화
+- 💾 **로컬 저장** 기능 (에디터)
 
 ## 🛠 설치 및 실행
 
@@ -19,10 +22,27 @@ npm install
 ```
 
 ### 2. 개발 서버 실행
+
+**메인 페이지 (Waitlist)**
 ```bash
 npm start
 # 또는
 npm run dev
+```
+
+**에디터 페이지 (GrapesJS)**
+```bash
+npm run editor
+```
+
+**사이트맵 페이지**
+```bash
+npm run sitemap
+```
+
+**모든 페이지 동시 실행**
+```bash
+npm run dev:all
 ```
 
 ### 3. 프로덕션 빌드
@@ -48,21 +68,62 @@ const API_ENDPOINT = 'https://your-api-endpoint.com/waitlist';
 
 ```json
 {
-  "email": "user@example.com",
+  "email": "user@example.com", 
   "name": "사용자 이름"
 }
 ```
+
+## 🎨 GrapesJS 에디터 사용법
+
+### 에디터 접속
+```bash
+npm run editor
+```
+또는 브라우저에서 `/editor.html`로 접속
+
+### 주요 기능
+- **드래그 앤 드롭** 컴포넌트 배치
+- **반응형 미리보기** (Desktop/Tablet/Mobile)
+- **실시간 편집** 및 **즉시 미리보기**
+- **로컬 저장** 기능 (LocalStorage)
+- **CSS 스타일 편집**
+- **HTML 구조 편집**
+
+### 키보드 단축키
+- `Ctrl/Cmd + S`: 저장
+- `Ctrl/Cmd + P`: 미리보기
+
+### 저장된 페이지 관리
+- 에디터에서 편집한 내용은 브라우저 LocalStorage에 저장됩니다
+- 사이트맵 페이지에서 저장된 모든 페이지를 확인할 수 있습니다
+- 각 페이지별로 개별 편집/미리보기/삭제가 가능합니다
 
 ## 📁 프로젝트 구조
 
 ```
 waitlist/
-├── index.html          # 메인 HTML 파일
-├── styles.css          # CSS 스타일
-├── script.js           # JavaScript 로직
-├── package.json        # NPM 설정
-├── .gitignore         # Git 무시 파일
-└── README.md          # 프로젝트 설명
+├── src/                        # 소스 코드
+│   ├── pages/                  # HTML 페이지들
+│   │   ├── index.html          # 메인 waitlist 페이지
+│   │   ├── editor.html         # GrapesJS 에디터 페이지
+│   │   └── sitemap.html        # 사이트맵 페이지
+│   ├── assets/                 # 정적 자원
+│   │   ├── css/               # 스타일시트
+│   │   │   ├── styles.css     # 메인 스타일
+│   │   │   ├── editor.css     # 에디터 스타일
+│   │   │   └── sitemap.css    # 사이트맵 스타일
+│   │   ├── js/                # JavaScript 파일
+│   │   │   ├── script.js      # 메인 로직
+│   │   │   ├── editor.js      # 에디터 로직
+│   │   │   └── sitemap.js     # 사이트맵 로직
+│   │   └── images/            # 이미지 파일
+│   └── templates/             # 재사용 템플릿
+│       └── base.html          # 기본 템플릿
+├── dist/                      # 빌드 출력
+├── package.json               # NPM 설정
+├── .parcelrc                  # Parcel 설정
+├── .gitignore                # Git 무시 파일
+└── README.md                 # 프로젝트 설명
 ```
 
 ## 🎨 커스터마이징
