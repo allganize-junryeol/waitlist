@@ -1,63 +1,61 @@
 # Waitlist Website with GrapesJS Editor
 
-Parcel 기반의 정적 대기자 명단 웹사이트입니다. GrapesJS를 통한 시각적 편집 기능이 포함되어 있으며, JavaScript 사용을 최소화하여 가볍고 빠른 로딩을 제공합니다.
+**빌드 과정 없이 바로 실행 가능한** 정적 대기자 명단 웹사이트입니다. GrapesJS를 통한 시각적 편집 기능이 포함되어 있으며, JavaScript 사용을 최소화하여 가볍고 빠른 로딩을 제공합니다.
 
 ## 📋 주요 기능
 
-- 📱 **완전 반응형** 디자인 (모바일/태블릿/데스크톱)
-- 🎨 **GrapesJS 시각적 에디터** 내장
+- ⚡ **빌드 과정 불필요** - 바로 실행 가능한 정적 파일
+- 📱 **완전 반응형** 디자인 (모바일/태블릿/데스크톱)  
+- 🎨 **GrapesJS 시각적 에디터** 내장 (CDN 로드)
 - ✨ **모던하고 깔끔한** UI/UX
-- 🚀 **빠른 로딩** 속도 (Parcel 최적화)
+- 🚀 **즉시 실행** 가능 (정적 서버만 필요)
 - 📧 **이메일 유효성 검사**
 - 💫 **부드러운 애니메이션**
 - 🎯 **최소한의 JavaScript** 사용
 - 🗺️ **사이트맵** 기반 구조화
-- 💾 **로컬 저장** 기능 (에디터)
+- 💾 **브라우저 로컬 저장** 기능
 
-## 🛠 설치 및 실행
+## 🛠 빠른 시작 (빌드 불필요!)
 
-### 1. 의존성 설치
+### 방법 1: Python 내장 서버 (권장)
 ```bash
-npm install
-```
+# 프로젝트 폴더에서 실행
+python3 -m http.server 8080
 
-### 2. 개발 서버 실행
-
-**메인 페이지 (Waitlist)**
-```bash
+# 또는 npm 스크립트 사용
 npm start
-# 또는
-npm run dev
+```
+➡️ **http://localhost:8080** 에서 확인
+
+### 방법 2: Node.js HTTP 서버
+```bash
+# http-server 설치 (한 번만)
+npm install -g http-server
+
+# 서버 실행
+http-server . -p 8080 -o
+
+# 또는 npm 스크립트 사용
+npm run serve-node
 ```
 
-**에디터 페이지 (GrapesJS)**
+### 방법 3: PHP 내장 서버
 ```bash
-npm run editor
+php -S localhost:8080
+
+# 또는 npm 스크립트 사용  
+npm run serve-php
 ```
 
-**사이트맵 페이지**
-```bash
-npm run sitemap
-```
+### 방법 4: VS Code Live Server
+1. VS Code에서 `index.html` 우클릭
+2. "Open with Live Server" 선택
 
-**모든 페이지 동시 실행**
-```bash
-npm run dev:all
-```
-
-### 3. 프로덕션 빌드
-```bash
-npm run build
-```
-
-### 4. 캐시 정리
-```bash
-npm run clean
-```
+> **💡 참고**: 어떤 방법을 사용하든 **빌드 과정이 없어** 파일을 수정하면 새로고침만으로 바로 반영됩니다!
 
 ## ⚙️ API 설정
 
-`script.js` 파일에서 API 엔드포인트를 실제 서버 URL로 변경하세요:
+`assets/js/script.js` 파일에서 API 엔드포인트를 실제 서버 URL로 변경하세요:
 
 ```javascript
 const API_ENDPOINT = 'https://your-api-endpoint.com/waitlist';
@@ -98,38 +96,35 @@ npm run editor
 - 사이트맵 페이지에서 저장된 모든 페이지를 확인할 수 있습니다
 - 각 페이지별로 개별 편집/미리보기/삭제가 가능합니다
 
-## 📁 프로젝트 구조
+## 📁 프로젝트 구조 (정적 파일)
 
 ```
 waitlist/
-├── src/                        # 소스 코드
-│   ├── pages/                  # HTML 페이지들
-│   │   ├── index.html          # 메인 waitlist 페이지
-│   │   ├── editor.html         # GrapesJS 에디터 페이지
-│   │   └── sitemap.html        # 사이트맵 페이지
-│   ├── assets/                 # 정적 자원
-│   │   ├── css/               # 스타일시트
-│   │   │   ├── styles.css     # 메인 스타일
-│   │   │   ├── editor.css     # 에디터 스타일
-│   │   │   └── sitemap.css    # 사이트맵 스타일
-│   │   ├── js/                # JavaScript 파일
-│   │   │   ├── script.js      # 메인 로직
-│   │   │   ├── editor.js      # 에디터 로직
-│   │   │   └── sitemap.js     # 사이트맵 로직
-│   │   └── images/            # 이미지 파일
-│   └── templates/             # 재사용 템플릿
-│       └── base.html          # 기본 템플릿
-├── dist/                      # 빌드 출력
-├── package.json               # NPM 설정
-├── .parcelrc                  # Parcel 설정
-├── .gitignore                # Git 무시 파일
-└── README.md                 # 프로젝트 설명
+├── index.html                 # 🏠 메인 waitlist 페이지
+├── editor.html                # 🎨 GrapesJS 에디터 페이지  
+├── sitemap.html               # 🗺️ 사이트맵 페이지
+├── start.html                 # 🚀 시작 페이지 (런처)
+├── assets/                    # 정적 자원
+│   ├── css/                  # 스타일시트
+│   │   ├── styles.css        # 메인 스타일
+│   │   ├── editor.css        # 에디터 스타일
+│   │   └── sitemap.css       # 사이트맵 스타일
+│   ├── js/                   # JavaScript 파일
+│   │   ├── script.js         # 메인 로직
+│   │   ├── editor.js         # GrapesJS 에디터 로직
+│   │   └── sitemap.js        # 사이트맵 로직
+│   └── images/               # 이미지 파일
+├── package.json              # NPM 설정 (정적 서버용)
+├── .gitignore               # Git 무시 파일
+└── README.md                # 프로젝트 설명
+
+✨ 특징: 빌드 도구 없이 바로 실행 가능!
 ```
 
 ## 🎨 커스터마이징
 
 ### 색상 변경
-`styles.css`에서 다음 그라데이션 색상을 변경할 수 있습니다:
+`assets/css/styles.css`에서 다음 그라데이션 색상을 변경할 수 있습니다:
 
 ```css
 /* 메인 배경 */
@@ -149,21 +144,31 @@ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 - 모바일: 480px - 767px
 - 소형 모바일: ~479px
 
-## 🚀 배포
+## 🚀 배포 (초간단!)
 
-빌드된 `dist/` 폴더를 다음 플랫폼에 배포할 수 있습니다:
+**빌드 과정이 없어** 프로젝트 폴더를 그대로 업로드하면 됩니다:
 
-- **Netlify**: 드래그 앤 드롭으로 간편 배포
-- **Vercel**: Git 연동 자동 배포
-- **GitHub Pages**: 정적 호스팅
-- **AWS S3**: 정적 웹사이트 호스팅
+### 무료 호스팅
+- **Netlify**: 폴더 드래그 앤 드롭으로 즉시 배포
+- **Vercel**: Git 연동 또는 폴더 업로드
+- **GitHub Pages**: Repository 업로드 후 Settings에서 활성화
+- **Firebase Hosting**: `firebase deploy` 한 번으로 배포
+
+### 서버 호스팅
+- **일반 웹호스팅**: FTP로 파일 업로드
+- **AWS S3**: 정적 웹사이트 호스팅 설정
+- **Cloudflare Pages**: Git 연동 배포
+
+> **💡 장점**: `node_modules`, `.parcel-cache`, `dist` 폴더가 없어 업로드 용량이 작고 빠릅니다!
 
 ## 🔧 기술 스택
 
-- **빌드 도구**: Parcel 2.12.0
-- **스타일링**: 순수 CSS (CSS Grid, Flexbox)
+- **구조**: 순수 HTML5 정적 파일
+- **에디터**: GrapesJS (CDN 로드)
+- **스타일링**: 순수 CSS3 (CSS Grid, Flexbox)  
 - **JavaScript**: 최소한의 바닐라 JS
 - **반응형**: CSS Media Queries
+- **서버**: Python/Node.js/PHP 내장 서버
 
 ## 📄 라이선스
 

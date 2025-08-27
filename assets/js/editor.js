@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // CSS 스타일 읽기 (기존 스타일 로드)
     async function loadExistingCSS() {
         try {
-            const response = await fetch('../assets/css/styles.css');
+            const response = await fetch('./assets/css/styles.css');
             return await response.text();
         } catch (error) {
             console.warn('Could not load existing CSS:', error);

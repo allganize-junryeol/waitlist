@@ -1,22 +1,16 @@
 {
   "name": "waitlist-website",
   "version": "1.0.0",
-  "description": "정적 대기자 명단 웹사이트",
+  "description": "정적 대기자 명단 웹사이트 (GrapesJS 에디터 포함)",
   "scripts": {
-    "start": "parcel src/pages/index.html",
-    "build": "parcel build src/pages/*.html --dist-dir dist --public-url ./",
-    "dev": "parcel src/pages/index.html --open",
-    "editor": "parcel src/pages/editor.html --open",
-    "sitemap": "parcel src/pages/sitemap.html --open",
-    "dev:all": "parcel src/pages/*.html",
-    "clean": "rm -rf dist .parcel-cache"
-  },
-  "dependencies": {
-    "grapesjs": "^0.21.13",
-    "grapesjs-preset-webpage": "^1.0.3"
+    "start": "python3 -m http.server 8080",
+    "serve": "python3 -m http.server 8080",
+    "serve-php": "php -S localhost:8080",
+    "serve-node": "npx http-server . -p 8080 -o",
+    "clean": "rm -rf node_modules package-lock.json .parcel-cache dist"
   },
   "devDependencies": {
-    "parcel": "^2.12.0"
+    "http-server": "^14.1.1"
   },
   "browserslist": [
     "> 1%",
