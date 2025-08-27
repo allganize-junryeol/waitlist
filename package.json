@@ -3,14 +3,26 @@
   "version": "1.0.0",
   "description": "정적 대기자 명단 웹사이트 (GrapesJS 에디터 포함)",
   "scripts": {
-    "start": "python3 -m http.server 8080",
-    "serve": "python3 -m http.server 8080",
+    "start": "serve -s . -l 8080",
+    "dev": "serve -s . -l 8080",
+    "serve": "serve -s . -l 8080",
+    "serve-python": "python3 -m http.server 8080",
     "serve-php": "php -S localhost:8080",
-    "serve-node": "npx http-server . -p 8080 -o",
-    "clean": "rm -rf node_modules package-lock.json .parcel-cache dist"
+    "open": "serve -s . -l 8080 --open",
+    "clean": "rm -rf node_modules package-lock.json .parcel-cache dist",
+    "editor": "node server.js",
+    "editor-start": "concurrently \"npm run editor\" \"npm run serve\"",
+    "build": "echo 'Static website - no build needed'"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "grapesjs": "^0.22.12",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "concurrently": "^8.2.2",
+    "serve": "^14.2.3"
   },
   "browserslist": [
     "> 1%",

@@ -3,96 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waitlist - 출시 전 알림 받기</title>
-    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Waitlist - 홈</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .redirect-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .redirect-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .redirect-message {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .redirect-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .redirect-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .redirect-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">Waitlist</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active">홈</a>
-                <a href="editor.html" class="nav-link">페이지 편집</a>
-                <a href="sitemap.html" class="nav-link">사이트맵</a>
-            </div>
+    <div class="redirect-container">
+        <h1 class="redirect-title">🚀 Waitlist 웹사이트</h1>
+        <p class="redirect-message">
+            HTML 파일들이 assets 폴더로 이동되었습니다.<br>
+            아래 링크로 접속하세요:
+        </p>
+        <div class="redirect-links">
+            <a href="./assets/index.html" class="redirect-link">🏠 메인 페이지</a>
+            <a href="./assets/sitemap.html" class="redirect-link">🗺️ 사이트맵</a>
+            <a href="./editor.html" class="redirect-link">🎨 에디터</a>
         </div>
-    </nav>
-    
-    <div class="container">
-        <header class="hero">
-            <h1 class="hero-title">곧 찾아뵙겠습니다!</h1>
-            <p class="hero-subtitle">혁신적인 서비스가 곧 출시됩니다. 얼리 액세스를 원하시면 이메일을 남겨주세요.</p>
-        </header>
-
-        <main class="main-content">
-            <div class="waitlist-form-container">
-                <form id="waitlistForm" class="waitlist-form">
-                    <div class="form-group">
-                        <label for="email" class="form-label">이메일 주소</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-input" 
-                            placeholder="your@email.com" 
-                            required
-                        >
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="name" class="form-label">이름 (선택사항)</label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            class="form-input" 
-                            placeholder="이름을 입력해주세요"
-                        >
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <span class="btn-text">대기 명단 참여하기</span>
-                        <span class="btn-loading hidden">제출 중...</span>
-                    </button>
-                </form>
-
-                <div id="successMessage" class="success-message hidden">
-                    <h3>감사합니다! 🎉</h3>
-                    <p>대기 명단에 등록되었습니다. 곧 연락드리겠습니다.</p>
-                </div>
-
-                <div id="errorMessage" class="error-message hidden">
-                    <p>문제가 발생했습니다. 다시 시도해주세요.</p>
-                </div>
-            </div>
-
-            <div class="features">
-                <h2 class="features-title">무엇을 기대할 수 있나요?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h3>얼리 액세스</h3>
-                        <p>정식 출시 전 특별한 미리보기 기능을 체험하세요</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💎</div>
-                        <h3>독점 혜택</h3>
-                        <p>대기자 명단 참여자만을 위한 특별 할인과 혜택</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔔</div>
-                        <h3>우선 알림</h3>
-                        <p>출시 소식을 가장 먼저 받아보세요</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <footer class="footer">
-            <p>&copy; 2024. 모든 권리 보유.</p>
-        </footer>
     </div>
 
-    <script src="./assets/js/script.js"></script>
+    <script>
+        // 5초 후 자동 리다이렉트
+        setTimeout(() => {
+            window.location.href = './assets/index.html';
+        }, 5000);
+    </script>
 </body>
 </html>

@@ -27,3 +27,10 @@ npm-debug.log*
 # Temporary files
 .tmp/
 *.tmp
+
+# GrapesJS Editor Files (개발환경용 - 프로덕션 제외)
+editor.html
+server.js
+assets/js/editor.js
+assets/css/editor.css
+backups/

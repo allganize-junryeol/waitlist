@@ -66,17 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="page-icon">📄</span>
                 <h3 class="page-name">${page.name}</h3>
             </div>
-            <p class="page-description">GrapesJS로 생성된 커스텀 페이지</p>
-            <div class="page-actions">
-                <button onclick="previewSavedPage('${page.name}')" class="page-action view-action">미리보기</button>
-                <a href="editor.html?page=${page.name}" class="page-action edit-action">편집</a>
-                <button onclick="deletePage('${page.name}')" class="page-action delete-action">삭제</button>
-            </div>
-            <div class="page-features">
-                <span class="feature-tag">커스텀</span>
-                <span class="feature-tag">저장됨</span>
-                <span class="feature-tag">${formatDate(page.data.timestamp)}</span>
-            </div>
         `;
         return card;
     }
