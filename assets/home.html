@@ -21,16 +21,26 @@
         </header>
         <main class="main-content">
             <div class="waitlist-form-container">
-                <form id="waitlistForm" class="waitlist-form">
-                    <div class="form-group"><label for="email" class="form-label">이메일 주소</label><input type="email" id="email" name="email" placeholder="your@email.com" required class="form-input" /></div>
-                    <div class="form-group"><label for="name" class="form-label">이름 (선택사항)</label><input type="text" id="name" name="name" placeholder="이름을 입력해주세요" class="form-input" /></div><button type="submit" class="submit-btn"><span class="btn-text">대기 명단 참여하기</span><span class="btn-loading hidden">제출 중...</span></button>
+                <form action="/api/waitlist" method="POST" class="waitlist-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">이메일 주소</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required class="form-input" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="form-label">이름 (선택사항)</label>
+                        <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" class="form-input" />
+                    </div>
+                    <button type="submit" class="submit-btn">대기 명단 참여하기</button>
                 </form>
+                
+                <!-- 성공/에러 메시지 -->
                 <div id="successMessage" class="success-message hidden">
                     <h3>감사합니다! 🎉</h3>
                     <p>대기 명단에 등록되었습니다. 곧 연락드리겠습니다.</p>
+                    <p id="positionInfo" class="position-info"></p>
                 </div>
                 <div id="errorMessage" class="error-message hidden">
-                    <p>문제가 발생했습니다. 다시 시도해주세요.</p>
+                    <p id="errorText">문제가 발생했습니다. 다시 시도해주세요.</p>
                 </div>
             </div>
             <div class="features">
@@ -58,6 +68,35 @@
             <p>© 2024. 모든 권리 보유.</p>
         </footer>
     </div>
+
+    <script>
+        // URL 파라미터 체크하여 메시지 표시
+        const urlParams = new URLSearchParams(window.location.search);
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        if (urlParams.get('success') === 'true') {
+            const position = urlParams.get('position');
+            const name = urlParams.get('name');
+            
+            successMessage.classList.remove('hidden');
+            
+            if (position) {
+                document.getElementById('positionInfo').textContent = `대기 순번: ${position}번`;
+            }
+            
+            // URL 정리 (뒤로가기 시 메시지 중복 방지)
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+        } else if (urlParams.get('error')) {
+            const errorText = urlParams.get('error');
+            document.getElementById('errorText').textContent = errorText;
+            errorMessage.classList.remove('hidden');
+            
+            // URL 정리
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
 </body>
 
 </html>

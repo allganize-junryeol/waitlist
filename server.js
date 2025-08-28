@@ -8,6 +8,8 @@ const PORT = 3000;
 
 // Editor API 라우터 import
 const editorRouter = require('./api/editor');
+// Waitlist API 라우터 import
+const waitlistRouter = require('./api/waitlist');
 
 function sendIndex(res){
     if (process.env.NODE_ENV === 'production'){
@@ -20,6 +22,7 @@ function sendIndex(res){
 // 미들웨어 설정
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true })); // HTML form 데이터 처리
 
 // 정적 파일 서빙 - 에디터에서 CSS/JS 접근 가능하도록
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
@@ -27,6 +30,8 @@ app.use(express.static(__dirname)); // 루트 디렉토리의 정적 파일 (JS,
 
 // Editor API 라우터 연결
 app.use('/api', editorRouter);
+// Waitlist API 라우터 연결
+app.use('/api', waitlistRouter);
 
 // index.html 직접 라우팅
 app.get('/index.html', (req, res) => {
