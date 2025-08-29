@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lightbox - 보험, 알아보면 최대 30만원</title>
     <link rel="stylesheet" href="insurance.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
@@ -29,255 +29,305 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-container">
-            <!-- Left Content -->
-            <div class="hero-left">
-                <h1 class="hero-title">
-                    보험, 알아보면<br>
-                    <span class="highlight-blue">최대 30만원</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Lightbox 통해 보험 상품 가입하면 AI 상품 직접 맞춤분석 혜택이 보장!
-                </p>
-                <div class="benefit-badge">
-                    <span class="badge-icon">🎁</span>
-                    <span class="badge-text">누적 3만명이 혜택을 받았습니다</span>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="content-row">
+                <!-- Left Content -->
+                <div class="hero-left">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="title-line">보험, 알아보면</span>
+                            <span class="title-line highlight">최대 3만원</span>
+                        </h1>
+                        <div class="hero-subtitle">
+                            <span class="text"><strong>Lightbox</strong> 통해</span>
+                            <span class="text">보험 상담 완료 시</span>
+                            <span class="reward-badge">최대 3만원의 리워드</span>
+                            <span class="text">보상</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Card -->
+                <div class="hero-center">
+                    <div class="travel-card">
+                        <div class="card-content">
+                            <div class="card-header">
+                                <h3>해외여행보험</h3>
+                                <span class="best-badge">BEST</span>
+                            </div>
+                            <p class="card-subtitle">안전 여행하고 환급금 받기</p>
+                            <div class="reward-info">
+                                <img src="images/coin-perspective.png" alt="코인" class="coin-icon">
+                                <span class="reward-text">누적 <strong>336만원</strong> 리워드</span>
+                            </div>
+                        </div>
+                        <div class="card-icon">
+                            <img src="images/airplane-icon.png" alt="비행기" class="airplane-icon">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Card -->
+                <div class="hero-right">
+                    <div class="reward-card">
+                        <div class="card-content">
+                            <p class="card-label">상담 리워드</p>
+                            <div class="reward-title">
+                                <h2>신세계상품권 3만원</h2>
+                                <img src="images/flash-icon.png" alt="플래시" class="flash-icon">
+                            </div>
+                            <button class="reward-btn">리워드가 포함된 상담신청</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insurance Types Section -->
+        <section class="insurance-types-section">
+            <div class="content-row">
+                <!-- First Row -->
+                <div class="insurance-card">
+                    <div class="card-icon">
+                        <img src="images/car-icon.png" alt="자동차" class="icon">
+                    </div>
+                    <div class="card-content">
+                        <h3>운전자보험</h3>
+                        <p>첫차부터 준비하는 붕붕보험</p>
+                    </div>
+                </div>
+
+                <div class="insurance-card">
+                    <div class="card-icon">
+                        <img src="images/medicine-icon.png" alt="의약품" class="icon">
+                    </div>
+                    <div class="card-content">
+                        <h3>영유아보험</h3>
+                        <p>태아부터 어린이까지 생애주기 보장</p>
+                    </div>
+                </div>
+
+                <div class="insurance-card featured">
+                    <div class="card-icon">
+                        <img src="images/tooth-icon.png" alt="치아" class="icon">
+                    </div>
+                    <div class="card-content">
+                        <h3>치아보험</h3>
+                        <p>임플란트 등 고액치료 미리 준비</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Center Visual -->
-            <div class="hero-center">
-                <div class="travel-insurance-card">
-                    <div class="card-header">
-                        <h3>해외여행보험</h3>
-                        <span class="new-badge">NEW</span>
+            <!-- Second Row - Same cards repeated -->
+            <div class="content-row">
+                <div class="insurance-card featured">
+                    <div class="card-icon">
+                        <img src="images/tooth-icon.png" alt="치아" class="icon">
                     </div>
-                    <p class="card-subtitle">출발 체크리스트 준비만 하면 끝!</p>
-                    <div class="card-icon">✈️</div>
+                    <div class="card-content">
+                        <h3>치아보험</h3>
+                        <p>임플란트 등 고액치료 미리 준비</p>
+                    </div>
+                </div>
+
+                <div class="insurance-card">
+                    <div class="card-icon">
+                        <img src="images/car-icon.png" alt="자동차" class="icon">
+                    </div>
+                    <div class="card-content">
+                        <h3>운전자보험</h3>
+                        <p>첫차부터 준비하는 붕붕보험</p>
+                    </div>
+                </div>
+
+                <div class="insurance-card">
+                    <div class="card-icon">
+                        <img src="images/medicine-icon.png" alt="의약품" class="icon">
+                    </div>
+                    <div class="card-content">
+                        <h3>영유아보험</h3>
+                        <p>태아부터 어린이까지 생애주기 보장</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Right Promo Card -->
-            <div class="hero-right">
-                <div class="promo-card">
-                    <div class="promo-header">
-                        <span class="promo-tag">상담 라디오</span>
-                    </div>
-                    <h2 class="promo-title">
-                        신세계상품권 30만원 💰
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="content-row">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="highlight">최대 3만원의 리워드</span> 포함된 보험상담 신청
                     </h2>
-                    <p class="promo-subtitle">지금이라도 활등받은 상수보험</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Insurance Types Grid -->
-    <section class="insurance-grid-section">
-        <div class="insurance-container">
-            <!-- First Row -->
-            <div class="insurance-row">
-                <!-- Large Card -->
-                <div class="insurance-card large-card">
-                    <div class="card-icon-wrapper">
-                        <div class="card-icon">🤝</div>
-                    </div>
-                    <h3>손해보험</h3>
-                    <p>실질적인 생활보험부 맞춤 보장</p>
-                </div>
-
-                <!-- Small Cards -->
-                <div class="insurance-card small-card">
-                    <div class="card-icon-wrapper business-bg">
-                        <div class="card-icon">💼</div>
-                    </div>
-                    <h3>영업차보험</h3>
-                    <p>택시나 수종승객사업을 하실수 있는</p>
-                </div>
-
-                <div class="insurance-card small-card">
-                    <div class="card-icon-wrapper gray-bg">
-                        <div class="card-icon">📋</div>
-                    </div>
-                    <h3>차이보험</h3>
-                    <p>운전을 및 고객에 대한 상품</p>
-                </div>
-            </div>
-
-            <!-- Second Row - 3 Equal Cards -->
-            <div class="insurance-row">
-                <div class="insurance-card equal-card">
-                    <div class="card-icon-wrapper blue-bg">
-                        <div class="card-icon">⚕️</div>
-                    </div>
-                    <h3>실손보험</h3>
-                    <p>실제 입원비 및 영상 흔한 생활 연손</p>
-                </div>
-
-                <div class="insurance-card equal-card">
-                    <div class="card-icon-wrapper red-bg">
-                        <div class="card-icon">🚗</div>
-                    </div>
-                    <h3>운전자보험</h3>
-                    <p>사고시니 딸라다상거서 상품충 이 사금</p>
-                </div>
-
-                <div class="insurance-card equal-card">
-                    <div class="card-icon-wrapper orange-bg">
-                        <div class="card-icon">🏃‍♂️</div>
-                    </div>
-                    <h3>영업차보험</h3>
-                    <p>후보님다 만능해급날 생활을 더 사금</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- KYOBO Products Section -->
-    <section class="products-section">
-        <div class="products-container">
-            <h2 class="section-title">
-                최대 3만원의 리워드 <span class="highlight-blue">포함된 보험상품 선별</span>
-            </h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-header">
-                        <h4>특약이 보건보험료</h4>
-                        <div class="kyobo-logo">KYOBO</div>
-                    </div>
-                    <p class="product-subtitle">최 장 실보료 100% 확인 (최대 3만원)</p>
-                    <div class="product-stats">
-                        <span class="product-stat">특정 가산 보험료</span>
-                        <div class="product-rating">★★★★☆</div>
-                    </div>
-                    <div class="product-premium">실 장 실보료 100% 후라 (최대 3만원)</div>
-                    <button class="product-btn">보험 해당상품</button>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-header">
-                        <h4>특약이 보건보험료</h4>
-                        <div class="kyobo-logo">KYOBO</div>
-                    </div>
-                    <p class="product-subtitle">최 장 실보료 100% 확인 (최대 3만원)</p>
-                    <div class="product-stats">
-                        <span class="product-stat">특정 가산 보험료</span>
-                        <div class="product-rating">★★★★☆</div>
-                    </div>
-                    <div class="product-premium">실 장 실보료 100% 후라 (최대 3만원)</div>
-                    <button class="product-btn">보험 해당상품</button>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-header">
-                        <h4>특약이 보건보험료</h4>
-                        <div class="kyobo-logo">KYOBO</div>
-                    </div>
-                    <p class="product-subtitle">최 장 실보료 100% 확인 (최대 3만원)</p>
-                    <div class="product-stats">
-                        <span class="product-stat">특정 가산 보험료</span>
-                        <div class="product-rating">★★★★☆</div>
-                    </div>
-                    <div class="product-premium">실 장 실보료 100% 후라 (최대 3만원)</div>
-                    <button class="product-btn">보험 해당상품</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <div class="benefits-container">
-            <h2 class="section-title">보험, 그냥 알아보면 손해</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-visual laptop-visual">
-                        <div class="laptop-image"></div>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>노후 대비</h3>
-                        <p>고령만 맞는<br>보험을 추천</p>
+                    <div class="more-link">
+                        더보기 <span class="arrow">〉</span>
                     </div>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-visual chart-visual">
-                        <div class="chart-image"></div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="card-content">
+                            <div class="card-text">
+                                <p class="product-category">캐롯 자동차보험 이벤트</p>
+                                <h3 class="product-title">투게더 운전자보험<br>첫 달 보험료 100% 환급 (최대 3만P)</h3>
+                            </div>
+                            <div class="card-profile">
+                                <img src="images/profile-image.png" alt="프로필" class="profile-image">
+                            </div>
+                        </div>
+                        <button class="benefit-btn">혜택 알아보기</button>
                     </div>
-                    <div class="benefit-content">
-                        <h3>만원 이상 진료비</h3>
-                        <p>장애인 함급날기</p>
-                    </div>
-                </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-visual family-visual">
-                        <div class="family-image"></div>
+                    <div class="product-card">
+                        <div class="card-content">
+                            <div class="card-text">
+                                <p class="product-category">캐롯 자동차보험 이벤트</p>
+                                <h3 class="product-title">투게더 운전자보험<br>첫 달 보험료 100% 환급 (최대 3만P)</h3>
+                            </div>
+                            <div class="card-profile">
+                                <img src="images/profile-image.png" alt="프로필" class="profile-image">
+                            </div>
+                        </div>
+                        <button class="benefit-btn">혜택 알아보기</button>
                     </div>
-                    <div class="benefit-content">
-                        <h3>대한민국 40대가<br>가장 많이 가입한 차이보험</h3>
-                        <p>치료비, 수술비, 입원비</p>
-                    </div>
-                </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-visual protection-visual">
-                        <div class="protection-image"></div>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>법무사가 드러는<br>안전한 차이보험</h3>
-                        <p>법무사 법률 상담 기업인지 정진</p>
+                    <div class="product-card">
+                        <div class="card-content">
+                            <div class="card-text">
+                                <p class="product-category">캐롯 자동차보험 이벤트</p>
+                                <h3 class="product-title">투게더 운전자보험<br>첫 달 보험료 100% 환급 (최대 3만P)</h3>
+                            </div>
+                            <div class="card-profile">
+                                <img src="images/profile-image.png" alt="프로필" class="profile-image">
+                            </div>
+                        </div>
+                        <button class="benefit-btn">혜택 알아보기</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="testimonials-container">
-            <h2 class="section-title">보험을 상담 리워드 후기</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="avatar">👩</div>
-                        <div class="user-info">
-                            <h4>Agnes Remi</h4>
-                            <div class="stars">⭐⭐⭐⭐⭐</div>
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <div class="content-row">
+                <h2 class="section-title">보험, 그냥 알아보면 손해</h2>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">
+                                <span class="highlight">노후 대비</span><br>
+                                <span class="highlight">고혈압·당뇨</span><br>
+                                <span>보장을 동시에</span>
+                            </h3>
+                        </div>
+                        <div class="benefit-icon">
+                            <div class="icon-circle">💻</div>
                         </div>
                     </div>
-                    <p class="testimonial-text">
-                        "Dico is finally addressing a long time problem we had when building UIs. It's ease of use and workflow seems really intuitive. Promising! ⭐"
-                    </p>
-                    <div class="testimonial-meta">
-                        🏷️ Dico user, 2021 03.02
-                    </div>
-                </div>
 
-                <div class="testimonial-card">
-                    <div class="testimonial-header">
-                        <div class="avatar">👨</div>
-                        <div class="user-info">
-                            <h4>Agnes Remi</h4>
-                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div class="benefit-card">
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">
+                                <span class="highlight">만원 이상 진료비용</span><br>
+                                <span>절반이상 환급받기</span>
+                            </h3>
+                        </div>
+                        <div class="benefit-icon">
+                            <div class="icon-circle">📊</div>
                         </div>
                     </div>
-                    <p class="testimonial-text">
-                        "Dico is finally addressing a long time problem we had when building UIs. It's ease of use and workflow seems really intuitive. Promising! ⭐"
-                    </p>
-                    <div class="testimonial-meta">
-                        🏷️ Dico user, 2021 03.02
+
+                    <div class="benefit-card">
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">
+                                <span>대한민국 40대가</span><br>
+                                <span>가장 많이 가입한 치아보험</span>
+                            </h3>
+                            <p class="benefit-subtitle">임플란트 · 스케일링 · 보철치료</p>
+                        </div>
+                        <div class="benefit-icon">
+                            <div class="icon-circle">💰</div>
+                            <img src="images/tooth-icon.png" alt="치아" class="tooth-overlay">
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-content">
+                            <h3 class="benefit-title">
+                                <span>변호사가 도와주는</span><br>
+                                <span>안전한 운전자보험</span>
+                            </h3>
+                            <p class="benefit-subtitle">'상담신청' 하면 최대 3만원의 혜택!</p>
+                        </div>
+                        <div class="benefit-icon">
+                            <div class="icon-circle">⚖️</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <div class="content-row">
+                <h2 class="section-title">보상돈 상담 리워드 후기</h2>
+                
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                            <div class="avatar">👩</div>
+                            <div class="info">
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <h4>Agnes Remi</h4>
+                                <p class="job">Back-end developer at MyDodow</p>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            << Dico is finally addressing a long time problem we had when building UIs. It's ease of use and workflow seems really intuitive. Promising! >>
+                        </div>
+                        <div class="review-meta">
+                            <div class="badge-group">
+                                <div class="color-badge blue"></div>
+                                <div class="color-badge red"></div>
+                                <div class="color-badge yellow"></div>
+                            </div>
+                            <span class="date">Dico user, 2021.03.02</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                            <div class="avatar">👨</div>
+                            <div class="info">
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                                <h4>Agnes Remi</h4>
+                                <p class="job">Back-end developer at MyDodow</p>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            << Dico is finally addressing a long time problem we had when building UIs. It's ease of use and workflow seems really intuitive. Promising! >>
+                        </div>
+                        <div class="review-meta">
+                            <div class="badge-group">
+                                <div class="color-badge blue"></div>
+                                <div class="color-badge red"></div>
+                                <div class="color-badge yellow"></div>
+                            </div>
+                            <span class="date">Dico user, 2021.03.02</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Final CTA -->
-    <section class="final-cta-section">
-        <button class="final-cta-btn">내 보험료 확인하기</button>
-    </section>
+    <div class="final-cta">
+        <button class="cta-button">내 보험료 확인하기</button>
+    </div>
 </body>
 </html>
