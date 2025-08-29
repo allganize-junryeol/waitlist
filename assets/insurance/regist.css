@@ -393,75 +393,426 @@
     font-size: 20px;
 }
 
-/* Responsive Design */
+/* Registration Page Responsive Design */
+
+/* Additional overflow prevention for registration page */
+.main-container,
+.content-section,
+.form-section,
+.benefits-section,
+.form-container,
+.benefit-item {
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure all elements don't overflow */
+.content-row,
+.content-section,
+.form-section,
+.form-container,
+.benefits-grid,
+.benefits-column,
+.benefit-item {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.form-input,
+.submit-btn {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 @media (max-width: 1200px) {
     .content-row {
         flex-direction: column;
-        gap: 40px;
+        gap: 30px;
         align-items: center;
+        padding: 0 30px;
     }
     
     .content-section,
     .form-section {
         max-width: none;
         width: 100%;
+        min-width: 0;
     }
     
     .form-section {
         max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .main-container {
+        padding-top: 100px;
     }
 }
 
 @media (max-width: 768px) {
     .content-row {
-        padding: 0 20px;
+        padding: 0 16px;
+        gap: 24px;
+    }
+    
+    .main-container {
+        padding-top: 80px;
     }
     
     .form-container {
-        padding: 24px;
+        padding: 20px 16px;
+        border-radius: 16px;
+        margin: 0;
     }
     
     .form-title {
         font-size: 20px;
+        line-height: 1.3;
+        margin-bottom: 24px;
     }
     
     .hero-title {
-        font-size: 28px;
+        font-size: 24px;
+        line-height: 1.3;
+        margin-bottom: 12px;
+    }
+    
+    .hero-subtitle {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    .benefits-title {
+        font-size: 20px;
+        line-height: 1.3;
+        margin-bottom: 24px;
     }
     
     .benefits-grid {
         flex-direction: column;
-    }
-    
-    .radio-group {
         gap: 16px;
     }
     
-    .submit-btn {
-        font-size: 16px;
-        padding: 16px 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .benefits-grid {
-        gap: 16px;
+    .benefits-column {
+        gap: 12px;
     }
     
     .benefit-item {
-        padding: 12px;
+        padding: 16px 12px;
+        margin: 0;
     }
     
-    .form-container {
-        padding: 20px;
+    .benefit-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    
+    .benefit-content h3 {
+        font-size: 15px;
+        line-height: 1.4;
+    }
+    
+    .benefit-content p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    
+    .reward-section {
+        padding: 20px 16px;
+        border-radius: 12px;
+        margin: 0;
+    }
+    
+    .reward-text {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+    
+    .reward-button {
+        padding: 10px 16px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    .reward-icon {
+        font-size: 16px;
     }
     
     .consultation-form {
         gap: 20px;
     }
     
+    .form-group {
+        gap: 6px;
+    }
+    
+    .form-label {
+        font-size: 15px;
+    }
+    
+    .form-input {
+        padding: 14px 12px;
+        font-size: 15px;
+        border-radius: 8px;
+    }
+    
+    .radio-group {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .radio-label {
+        font-size: 15px;
+    }
+    
+    .checkbox-label {
+        font-size: 15px;
+        gap: 10px;
+    }
+    
+    .checkbox-text {
+        line-height: 1.4;
+    }
+    
+    .sub-checkboxes {
+        margin-left: 28px;
+        gap: 6px;
+    }
+    
+    .sub-checkbox-label {
+        font-size: 13px;
+    }
+    
+    .submit-btn {
+        font-size: 16px;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-top: 12px;
+    }
+    
+    .btn-icon {
+        font-size: 18px;
+    }
+    
+    .company-badge {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-row {
+        padding: 0 12px;
+        gap: 20px;
+    }
+    
+    .main-container {
+        padding-top: 70px;
+    }
+    
+    .form-container {
+        padding: 16px 12px;
+        border-radius: 12px;
+    }
+    
+    .form-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .hero-subtitle {
+        font-size: 15px;
+    }
+    
+    .benefits-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    
+    .benefits-grid {
+        gap: 12px;
+    }
+    
+    .benefits-column {
+        gap: 10px;
+    }
+    
+    .benefit-item {
+        padding: 12px 10px;
+        border-radius: 8px;
+    }
+    
+    .benefit-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .benefit-content h3 {
+        font-size: 14px;
+    }
+    
+    .benefit-content p {
+        font-size: 12px;
+    }
+    
+    .reward-section {
+        padding: 16px 12px;
+        border-radius: 10px;
+    }
+    
+    .reward-text {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+    
+    .reward-button {
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+    
+    .reward-icon {
+        font-size: 14px;
+    }
+    
+    .consultation-form {
+        gap: 16px;
+    }
+    
+    .form-label {
+        font-size: 14px;
+    }
+    
+    .form-input {
+        padding: 12px 10px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+    
     .radio-group {
         flex-direction: column;
         gap: 12px;
+    }
+    
+    .radio-label {
+        font-size: 14px;
+    }
+    
+    .checkbox-label {
+        font-size: 14px;
+        gap: 8px;
+    }
+    
+    .checkmark {
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+    }
+    
+    .checkmark.checked::after {
+        font-size: 12px;
+    }
+    
+    .radio-button {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .radio-button.active::after {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .sub-checkboxes {
+        margin-left: 24px;
+        gap: 4px;
+    }
+    
+    .sub-checkbox-label {
+        font-size: 12px;
+    }
+    
+    .submit-btn {
+        font-size: 14px;
+        padding: 14px 16px;
+        border-radius: 8px;
+    }
+    
+    .btn-icon {
+        font-size: 16px;
+    }
+    
+    .company-badge {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .content-row {
+        padding: 0 8px;
+    }
+    
+    .main-container {
+        padding-top: 60px;
+    }
+    
+    .form-container {
+        padding: 12px 8px;
+    }
+    
+    .form-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .hero-title {
+        font-size: 18px;
+    }
+    
+    .hero-subtitle {
+        font-size: 14px;
+    }
+    
+    .benefits-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .benefit-item {
+        padding: 10px 8px;
+    }
+    
+    .benefit-content h3 {
+        font-size: 13px;
+    }
+    
+    .benefit-content p {
+        font-size: 11px;
+    }
+    
+    .reward-section {
+        padding: 12px 8px;
+    }
+    
+    .form-input {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+    
+    .submit-btn {
+        font-size: 13px;
+        padding: 12px 12px;
     }
 }
