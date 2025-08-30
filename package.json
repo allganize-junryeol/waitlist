@@ -8,7 +8,9 @@
     "open": "serve -s . -l 8080 --open",
     "editor": "node server.js",
     "editor-start": "concurrently \"npm run editor\" \"npm run serve\"",
-    "build": "echo 'Static website - no build needed'"
+    "build": "echo 'Static website - no build needed'",
+    "serve-waitlist": "serve -s ./waitlist -l 8080",
+    "preview-github-pages": "serve -s ./waitlist -l 8080 --open"
   },
   "dependencies": {
     "cors": "^2.8.5",

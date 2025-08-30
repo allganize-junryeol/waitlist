@@ -83,10 +83,33 @@ waitlist/
 
 ## 🚀 배포
 
-### 정적 사이트 배포 (권장)
-1. **GitHub Pages / Netlify / Vercel**
-   - `assets/` 폴더의 파일들만 배포
-   - `index.html`, `sitemap.html` 포함
+### GitHub Pages 배포 (권장 ⭐)
+
+이 프로젝트는 `waitlist` 폴더를 GitHub Pages로 자동 배포하도록 설정되어 있습니다.
+
+#### 1. GitHub Pages 활성화
+1. GitHub 저장소 → **Settings** → **Pages**
+2. **Source**: `GitHub Actions` 선택
+3. 코드를 `main` 브랜치에 푸시하면 자동 배포됩니다
+
+#### 2. 로컬 미리보기
+```bash
+# waitlist 폴더만 미리보기 (GitHub Pages와 동일한 환경)
+npm run preview-github-pages
+
+# 또는
+npm run serve-waitlist
+```
+
+#### 3. 배포 상태 확인
+- **Actions** 탭에서 배포 진행 상황 확인
+- 배포 완료 후 `https://[username].github.io/[repository-name]`에서 확인
+
+### 기타 정적 사이트 배포
+1. **Netlify / Vercel**
+   - `waitlist/` 폴더를 루트 디렉토리로 설정하여 배포
+   - Build command: 없음 (정적 파일)
+   - Publish directory: `waitlist`
 
 ### 전체 프로젝트 배포 (에디터 포함)
 ```bash
