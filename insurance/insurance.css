@@ -97,6 +97,11 @@ h1, h2, h3, h4, h5, h6, p {
     color: #325FE5;
 }
 
+.nav-link.active {
+    color: #325FE5;
+    font-weight: 600;
+}
+
 .auth-section {
     display: flex;
     align-items: center;
