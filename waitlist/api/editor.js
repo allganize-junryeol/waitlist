@@ -201,7 +201,14 @@ function removeInlineStylesFromHtml(html, cssFileName) {
             // head 태그 내에 CSS 링크 추가
             const headEndRegex = /<\/head>/i;
             if (headEndRegex.test(cleanedHtml)) {
-                const cssLink = `    <link rel="stylesheet" href="/${cssFileName}">`;
+                // 프로젝트 타입에 따른 CSS 경로 설정
+                let cssHref;
+                if (global.projectType === 'insurance') {
+                    cssHref = `/@insurance/${cssFileName}`;
+                } else {
+                    cssHref = `/${cssFileName}`;
+                }
+                const cssLink = `    <link rel="stylesheet" href="${cssHref}">`;
                 cleanedHtml = cleanedHtml.replace(headEndRegex, `${cssLink}\n</head>`);
             }
         }
@@ -231,7 +238,13 @@ async function updateHtmlCssLink(htmlPath, cssFileName) {
 // 파일 탐색기 - assets 폴더 스캔
 router.get('/files', async (req, res) => {
     try {
-        const assetsDir = path.join(process.cwd(), 'assets');
+        // 프로젝트 타입에 따른 assets 폴더 경로 설정
+        let assetsDir;
+        if (global.projectType === 'insurance') {
+            assetsDir = global.basePath; // insurance 폴더 전체
+        } else {
+            assetsDir = path.join(process.cwd(), 'waitlist', 'assets'); // 기존 waitlist/assets
+        }
         
         // 재귀적으로 디렉토리 스캔하는 함수
         async function scanDirectory(dirPath, relativePath = '') {
@@ -306,7 +319,13 @@ router.get('/load-page/:filename', async (req, res) => {
         console.log(`📖 ${filename} 로드 시작`);
         
         const fileBaseName = getFileBaseName(filename);
-        const assetsDir = path.join(process.cwd(), 'assets');
+        // 프로젝트 타입에 따른 assets 폴더 경로 설정
+        let assetsDir;
+        if (global.projectType === 'insurance') {
+            assetsDir = global.basePath; // insurance 폴더 전체
+        } else {
+            assetsDir = path.join(process.cwd(), 'waitlist', 'assets'); // 기존 waitlist/assets
+        }
         
         // 서브디렉터리 파일 재귀적 검색
         async function findFileRecursively(dirPath, targetFilename) {
@@ -440,7 +459,13 @@ router.post('/save-page/:filename', async (req, res) => {
         console.log(`💾 ${filename} 저장 시작`);
         
         const fileBaseName = getFileBaseName(filename);
-        const assetsDir = path.join(process.cwd(), 'assets');
+        // 프로젝트 타입에 따른 assets 폴더 경로 설정
+        let assetsDir;
+        if (global.projectType === 'insurance') {
+            assetsDir = global.basePath; // insurance 폴더 전체
+        } else {
+            assetsDir = path.join(process.cwd(), 'waitlist', 'assets'); // 기존 waitlist/assets
+        }
         
         // 서브디렉터리 파일 재귀적 검색 (로드와 동일한 로직)
         async function findFileRecursively(dirPath, targetFilename) {

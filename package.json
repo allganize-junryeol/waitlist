@@ -3,14 +3,7 @@
   "version": "1.0.0",
   "description": "정적 대기자 명단 웹사이트 (GrapesJS 에디터 포함)",
   "scripts": {
-    "start": "serve -s . -l 8080",
-    "dev": "serve -s . -l 8080",
-    "open": "serve -s . -l 8080 --open",
-    "editor": "node server.js",
-    "editor-start": "concurrently \"npm run editor\" \"npm run serve\"",
-    "build": "echo 'Static website - no build needed'",
-    "serve-waitlist": "serve -s ./waitlist -l 8080",
-    "preview-github-pages": "serve -s ./waitlist -l 8080 --open"
+    "server:insurance": "node ./waitlist/server.js insurance"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -20,8 +13,7 @@
     "multer": "^2.0.2"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "serve": "^14.2.3"
+    "concurrently": "^8.2.2"
   },
   "browserslist": [
     "> 1%",
